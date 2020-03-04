@@ -1,9 +1,11 @@
 package com.vynaloze.thegame2.core.board.cartesian
 
+import com.vynaloze.thegame2.core.board.Board
 
-data class Grid(val width: Int, val height: Int) {
-    val nodes: List<Tile> = generateNodes()
-    val edges: List<TileEdge> = generateEdges()
+
+data class Grid(val width: Int, val height: Int): Board {
+    override val nodes: List<Tile> = generateNodes()
+    override val edges: List<TileEdge> = generateEdges()
 
     private fun generateNodes(): List<Tile> {
         val nodes = mutableListOf<Tile>()

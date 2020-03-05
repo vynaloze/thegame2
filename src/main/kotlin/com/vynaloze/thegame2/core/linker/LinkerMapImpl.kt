@@ -1,28 +1,28 @@
 package com.vynaloze.thegame2.core.linker
 
 import com.vynaloze.thegame2.core.board.Node
-import com.vynaloze.thegame2.core.content.Object
+import com.vynaloze.thegame2.core.content.Thing
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
 
-class LinkerMapImpl(private var map: Map<Object, Node>) : Linker {
+class LinkerMapImpl(private var map: Map<Thing, Node>) : Linker {
     private val lock = ReentrantLock()
 
-    override fun findObjectsOn(node: Node): List<Object> {
+    override fun findObjectsOn(node: Node): List<Thing> {
         return map
                 .filter { (_, n) -> n == node }
-                .map { (obj, _) -> obj }
+                .map { (thing, _) -> thing }
     }
 
-    override fun findPositionOf(obj: Object): Node {
-        return map[obj] ?: throw ObjectDoesNotExistException("position of object $obj not found")
+    override fun findPositionOf(thing: Thing): Node {
+        return map[thing] ?: throw ThingDoesNotExistException("position of thing $thing not found")
     }
 
-    override fun moveObject(obj: Object, target: Node) {
+    override fun moveObject(thing: Thing, target: Node) {
         lock.withLock {
             val newMap = map.toMutableMap()
-            newMap.replace(obj, target) ?: throw ObjectDoesNotExistException("cannot remove not-existing object $obj")
+            newMap.replace(thing, target) ?: throw ThingDoesNotExistException("cannot remove not-existing thing $thing")
             // todo validate rules? - if object can be moved to target node
             map = newMap
         }

@@ -8,5 +8,6 @@ interface Linker {
     fun findObjectsOn(node: Node): List<Thing>
     fun findPositionOf(thing: Thing): Node
 
-    fun moveObject(thing: Thing, target: Node)
+    fun moveThing(thing: Thing, target: Node)
+    fun removeThing(thing: Thing)
 }

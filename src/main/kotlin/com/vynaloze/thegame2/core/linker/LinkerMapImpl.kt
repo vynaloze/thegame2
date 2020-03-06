@@ -19,13 +19,20 @@ class LinkerMapImpl(private var map: Map<Thing, Node>) : Linker {
         return map[thing] ?: throw ThingDoesNotExistException("position of thing $thing not found")
     }
 
-    override fun moveObject(thing: Thing, target: Node) {
+    override fun moveThing(thing: Thing, target: Node) {
         lock.withLock {
             val newMap = map.toMutableMap()
-            newMap.replace(thing, target) ?: throw ThingDoesNotExistException("cannot remove not-existing thing $thing")
+            newMap.replace(thing, target) ?: throw ThingDoesNotExistException("cannot move not-existing thing $thing")
             // todo validate rules? - if object can be moved to target node
             map = newMap
         }
     }
 
+    override fun removeThing(thing: Thing) {
+        lock.withLock {
+            val newMap = map.toMutableMap()
+            newMap.remove(thing) ?: throw ThingDoesNotExistException("cannot remove not-existing thing $thing")
+            map = newMap
+        }
+    }
 }

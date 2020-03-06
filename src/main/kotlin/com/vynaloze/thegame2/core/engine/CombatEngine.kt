@@ -10,7 +10,7 @@ import com.vynaloze.thegame2.core.linker.Linker
 
 abstract class CombatEngine(private val linker: Linker) : Combative {
     override fun attack(target: Node) {
-        val position = this.linker.findPositionOf(this)
+        val position = this.linker.findPositionOf(this.container)
         val range = this.attackRange.evaluate(position)
         if (target !in range) {
             throw AttackTargetOutOfRangeException("target node $target is out of attack range of thing $this ($range)")

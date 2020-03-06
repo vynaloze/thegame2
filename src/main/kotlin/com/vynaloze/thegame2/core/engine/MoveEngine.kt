@@ -10,7 +10,7 @@ import com.vynaloze.thegame2.core.linker.Linker
 
 abstract class MoveEngine(private val linker: Linker) : Movable {
     override fun move(target: Node) {
-        val position = this.linker.findPositionOf(this)
+        val position = this.linker.findPositionOf(this.container)
         val range = this.moveRange.evaluate(position)
         if (target !in range) {
             throw MoveTargetOutOfRangeException("target node $target is out of range of thing $this ($range)")
@@ -22,6 +22,6 @@ abstract class MoveEngine(private val linker: Linker) : Movable {
             throw MoveTargetIsBlockedException("target node $target is blocked by $firstBlockingThingOnTarget")
         }
 
-        this.linker.moveThing(this, target)
+        this.linker.moveThing(this.container, target)
     }
 }

@@ -1,10 +1,10 @@
 package com.vynaloze.thegame2.core.engine
 
 import com.vynaloze.thegame2.core.board.Node
-import com.vynaloze.thegame2.core.content.behaviour.Combative
-import com.vynaloze.thegame2.core.content.behaviour.Vulnerable
-import com.vynaloze.thegame2.core.content.behaviour.exception.AttackTargetNotVulnerableException
-import com.vynaloze.thegame2.core.content.behaviour.exception.AttackTargetOutOfRangeException
+import com.vynaloze.thegame2.core.content.trait.Combative
+import com.vynaloze.thegame2.core.content.trait.Vulnerable
+import com.vynaloze.thegame2.core.content.trait.exception.AttackTargetNotVulnerableException
+import com.vynaloze.thegame2.core.content.trait.exception.AttackTargetOutOfRangeException
 import com.vynaloze.thegame2.core.linker.Linker
 
 

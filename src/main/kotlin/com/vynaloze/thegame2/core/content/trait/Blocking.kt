@@ -1,4 +1,4 @@
-package com.vynaloze.thegame2.core.content.behaviour
+package com.vynaloze.thegame2.core.content.trait
 
 
 interface Blocking : Trait {

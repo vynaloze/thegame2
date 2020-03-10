@@ -1,4 +1,4 @@
-package com.vynaloze.thegame2.core.content.trait.exception
+package com.vynaloze.thegame2.core.engine.exception
 
 
 class MoveTargetOutOfRangeException(message: String) : Exception(message)

@@ -9,10 +9,10 @@ import com.vynaloze.thegame2.core.engine.exception.AttackTargetOutOfRangeExcepti
 import com.vynaloze.thegame2.core.linker.Linker
 
 
-abstract class CombatEngine(private val linker: Linker) : Combative {
-    override fun attack(target: Node) {
-        val position = this.linker.findPositionOf(this.container)
-        val range = this.attackRange.evaluate(position)
+class CombatEngine(private val linker: Linker) {
+    fun <T> attack(source: T, target: Node) where T : Thing, T : Combative {
+        val position = this.linker.findPositionOf(source)
+        val range = source.attackRange.evaluate(position)
         if (target !in range) {
             throw AttackTargetOutOfRangeException("target node $target is out of attack range of thing $this ($range)")
         }
@@ -23,6 +23,6 @@ abstract class CombatEngine(private val linker: Linker) : Combative {
             throw AttackTargetNotVulnerableException("target node $target contains no vulnerable things")
         }
 
-        allVulnerableThingsOnTarget.forEach { t -> t.damage(this.attackForce) }
+        allVulnerableThingsOnTarget.forEach { t -> t.damage(source.attackForce) }
     }
 }

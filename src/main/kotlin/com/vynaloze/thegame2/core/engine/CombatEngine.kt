@@ -2,9 +2,9 @@ package com.vynaloze.thegame2.core.engine
 
 import com.vynaloze.thegame2.core.board.Node
 import com.vynaloze.thegame2.core.content.Thing
-import com.vynaloze.thegame2.core.content.trait.Combative
-import com.vynaloze.thegame2.core.content.trait.Vulnerable
-import com.vynaloze.thegame2.core.engine.exception.AttackTargetNotVulnerableException
+import com.vynaloze.thegame2.core.content.trait.active.Combative
+import com.vynaloze.thegame2.core.content.trait.active.Damageable
+import com.vynaloze.thegame2.core.engine.exception.AttackTargetNotDamageableException
 import com.vynaloze.thegame2.core.engine.exception.AttackTargetOutOfRangeException
 import com.vynaloze.thegame2.core.linker.Linker
 
@@ -18,11 +18,11 @@ class CombatEngine(private val linker: Linker) {
         }
 
         val thingsOnTarget = this.linker.findObjectsOn(target)
-        val allVulnerableThingsOnTarget = thingsOnTarget.filterIsInstance<Vulnerable>()
-        if (allVulnerableThingsOnTarget.isEmpty()) {
-            throw AttackTargetNotVulnerableException("target node $target contains no vulnerable things")
+        val allDamageableThingsOnTarget = thingsOnTarget.filterIsInstance<Damageable>()
+        if (allDamageableThingsOnTarget.isEmpty()) {
+            throw AttackTargetNotDamageableException("target node $target contains no damageable things")
         }
 
-        allVulnerableThingsOnTarget.forEach { t -> t.damage(source.attackForce) }
+        allDamageableThingsOnTarget.forEach { t -> t.damage(source.attackForce) }
     }
 }

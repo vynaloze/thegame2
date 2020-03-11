@@ -1,4 +1,4 @@
-package com.vynaloze.thegame2.core.content.trait
+package com.vynaloze.thegame2.core.content.trait.passive
 
 
 interface Blocking {

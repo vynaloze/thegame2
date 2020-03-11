@@ -9,7 +9,7 @@ import com.vynaloze.thegame2.core.engine.exception.MoveTargetOutOfRangeException
 import com.vynaloze.thegame2.core.linker.Linker
 
 
-class MoveEngine(private val linker: Linker) {
+class MoveEngine(linker: Linker) : Engine(linker) {
     fun <T> move(source: T, target: Node) where T: Thing, T: Movable {
         val position = this.linker.findPositionOf(source)
         val range = source.moveRange.evaluate(position)

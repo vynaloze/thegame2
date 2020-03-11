@@ -7,7 +7,7 @@ import com.vynaloze.thegame2.core.content.property.Health
 import com.vynaloze.thegame2.core.linker.Linker
 
 
-class DamageEngine(private val linker: Linker) {
+class DamageEngine(linker: Linker) : Engine(linker) {
     fun <T> damage(target: T, health: Health) where T : Thing, T: Damageable {
         if (this.isDead(target)) {
             throw ThingIsAlreadyDeadException("thing $this is already dead")

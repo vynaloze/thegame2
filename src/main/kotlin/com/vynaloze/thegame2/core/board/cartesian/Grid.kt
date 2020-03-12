@@ -1,11 +1,13 @@
 package com.vynaloze.thegame2.core.board.cartesian
 
 import com.vynaloze.thegame2.core.board.Board
+import com.vynaloze.thegame2.core.board.Edge
+import com.vynaloze.thegame2.core.board.Node
 
 
 data class Grid(val width: Int, val height: Int): Board {
     override val nodes: List<Tile> = generateNodes()
-    override val edges: List<TileEdge> = generateEdges()
+    override val edges: Map<Node, List<Edge>> = generateEdges()
 
     private fun generateNodes(): List<Tile> {
         val nodes = mutableListOf<Tile>()
@@ -17,8 +19,8 @@ data class Grid(val width: Int, val height: Int): Board {
         return nodes
     }
 
-    private fun generateEdges(): List<TileEdge> {
-        return nodes.flatMap{ tile -> findEdgesFor(tile) }
+    private fun generateEdges(): Map<Node, List<Edge>> {
+        return nodes.associate { tile -> tile to findEdgesFor(tile) }
     }
 
     private fun findEdgesFor(tile :Tile): List<TileEdge> {
@@ -31,7 +33,7 @@ data class Grid(val width: Int, val height: Int): Board {
                 n.coordinates == listOf(CartesianCoordinate(Dimension.X, x), CartesianCoordinate(Dimension.Y, y))
             }
             if (neighbour != null) {
-                edges.add(TileEdge(tile, direction, neighbour))
+                edges.add(TileEdge(direction, neighbour))
             }
         }
 

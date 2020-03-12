@@ -1,6 +1,6 @@
 package com.vynaloze.thegame2.core.board
 
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 
@@ -10,7 +10,7 @@ abstract class BoardTestBase {
             val description: String,
             val actualBoard: Board,
             val expectedNodes: List<Node>,
-            val expectedEdges: List<Edge>
+            val expectedEdges: Map<Node, List<Edge>>
     )
 
     @TestFactory
@@ -26,7 +26,8 @@ abstract class BoardTestBase {
 
 
     private fun validateTestCase(testCase: TestCase) {
-        Assertions.assertThat(testCase.actualBoard.nodes).containsExactlyInAnyOrderElementsOf(testCase.expectedNodes)
-        Assertions.assertThat(testCase.actualBoard.edges).containsExactlyInAnyOrderElementsOf(testCase.expectedEdges)
+        assertThat(testCase.actualBoard.nodes).containsExactlyInAnyOrderElementsOf(testCase.expectedNodes)
+        assertThat(testCase.actualBoard.edges).containsOnlyKeys(testCase.expectedEdges.keys)
+        assertThat(testCase.actualBoard.edges).allSatisfy { node, edges -> assertThat(edges).containsExactlyInAnyOrderElementsOf(testCase.expectedEdges[node]) }
     }
 }

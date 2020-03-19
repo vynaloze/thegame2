@@ -12,7 +12,7 @@ import com.vynaloze.thegame2.core.linker.Linker
 class CombatEngine(linker: Linker) : Engine(linker) {
     fun <T> attack(source: T, target: Node) where T : Thing, T : Combative {
         val position = this.linker.findPositionOf(source)
-        val range = source.attackRange.evaluate(position)
+        val range = source.attackRange.evaluate(position) // todo remember to include blocking in range eval
         if (target !in range) {
             throw AttackTargetOutOfRangeException("target node $target is out of attack range of thing $this ($range)")
         }

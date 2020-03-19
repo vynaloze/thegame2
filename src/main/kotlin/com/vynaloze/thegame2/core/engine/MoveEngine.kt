@@ -18,7 +18,7 @@ class MoveEngine(linker: Linker) : Engine(linker) {
         }
 
         val thingsOnTarget = this.linker.findObjectsOn(target)
-        val firstBlockingThingOnTarget = thingsOnTarget.find { t -> t is Blocking }
+        val firstBlockingThingOnTarget = thingsOnTarget.find { t -> t is Blocking && t.blocksMovement }
         if (firstBlockingThingOnTarget != null) {
             throw MoveTargetIsBlockedException("target node $target is blocked by $firstBlockingThingOnTarget")
         }

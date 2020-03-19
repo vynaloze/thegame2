@@ -2,7 +2,7 @@ package com.vynaloze.thegame2.core.engine
 
 import com.vynaloze.thegame2.core.board.Node
 import com.vynaloze.thegame2.core.content.Thing
-import com.vynaloze.thegame2.core.content.trait.passive.Blocking
+import com.vynaloze.thegame2.core.content.trait.passive.BlockingPotential
 import com.vynaloze.thegame2.core.content.trait.active.Movable
 import com.vynaloze.thegame2.core.engine.exception.MoveTargetIsBlockedException
 import com.vynaloze.thegame2.core.engine.exception.MoveTargetOutOfRangeException
@@ -18,7 +18,7 @@ class MoveEngine(linker: Linker) : Engine(linker) {
         }
 
         val thingsOnTarget = this.linker.findObjectsOn(target)
-        val firstBlockingThingOnTarget = thingsOnTarget.find { t -> t is Blocking && t.blocksMovement }
+        val firstBlockingThingOnTarget = thingsOnTarget.find { t -> t is BlockingPotential && t.blocksMovement }
         if (firstBlockingThingOnTarget != null) {
             throw MoveTargetIsBlockedException("target node $target is blocked by $firstBlockingThingOnTarget")
         }

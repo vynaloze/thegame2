@@ -14,7 +14,7 @@ class SorceryEngine(linker: Linker) : Engine(linker) {
         this.validateManaAmount(source, spell)
         val position = this.linker.findPositionOf(source)
         // todo remember to include blocking in range eval
-        val range = spell.effectArea.evaluate(position)
+        val range = spell.effectArea.evaluate(position.node, position.rotation)
         if (target !in range) {
             throw SpellTargetOutOfRangeException("target node $target is out of spell range of thing $this ($range)")
         }

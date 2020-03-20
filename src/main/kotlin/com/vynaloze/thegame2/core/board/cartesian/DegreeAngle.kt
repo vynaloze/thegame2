@@ -14,4 +14,22 @@ enum class DegreeAngle(val value: Double): Angle {
             DOWN -> UP
         }
     }
+
+    fun clockwise(): Angle {
+        return when(this) {
+            RIGHT -> DOWN
+            UP -> RIGHT
+            LEFT -> UP
+            DOWN -> LEFT
+        }
+    }
+
+    fun counterclockwise(): Angle {
+        return when(this) {
+            RIGHT -> UP
+            UP -> LEFT
+            LEFT -> DOWN
+            DOWN -> RIGHT
+        }
+    }
 }
